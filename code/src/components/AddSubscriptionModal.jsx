@@ -1,22 +1,9 @@
 import React, { useState } from "react";
 import { ChevronDown, X } from "lucide-react";
+import { preImplementedLogos } from "../constants/subscriptions";
+import { categories } from "../constants/categories";
 
-const categories = ["Entertainment", "Productivity", "Utilities", "Other"];
-
-const preImplementedLogos = [
-  { name: "Netflix", url: "https://logo.clearbit.com/netflix.com" },
-  { name: "Spotify", url: "https://logo.clearbit.com/spotify.com" },
-  { name: "Amazon Prime", url: "https://logo.clearbit.com/amazon.com" },
-  { name: "Disney+", url: "https://logo.clearbit.com/disneyplus.com" },
-  { name: "Hulu", url: "https://logo.clearbit.com/hulu.com" },
-  { name: "YouTube Premium", url: "https://logo.clearbit.com/youtube.com" },
-  { name: "Apple TV+", url: "https://logo.clearbit.com/apple.com" },
-  { name: "HBO Max", url: "https://logo.clearbit.com/hbo.com" },
-  { name: "Microsoft 365", url: "https://logo.clearbit.com/microsoft.com" },
-  { name: "Adobe Creative Cloud", url: "https://logo.clearbit.com/adobe.com" },
-];
-
-const AddSubscriptionModal = ({ onClose, onAdd }) => {
+export function AddSubscriptionModal({ onClose, onAdd, currency }) {
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
   const [frequency, setFrequency] = useState("monthly");
@@ -211,6 +198,6 @@ const AddSubscriptionModal = ({ onClose, onAdd }) => {
       </div>
     </div>
   );
-};
+}
 
 export default AddSubscriptionModal;

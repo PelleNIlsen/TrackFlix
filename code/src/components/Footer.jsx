@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = () => {
+export function Footer() {
   return (
     <div className="bg-[#0c0c0c] rounded-xl mt-8 p-6">
       <div className="flex flex-col sm:flex-row gap-y-4 justify-between">
@@ -30,6 +30,4 @@ const Footer = () => {
       </div>
     </div>
   );
-};
-
-export default Footer;
+}

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-
-const Calendar = ({ subscriptions, onEditSubscription, currency }) => {
+import React, { useState } from "react";
+export function Calendar({ subscriptions, onEditSubscription, currency }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = new Date(
@@ -167,6 +166,4 @@ const Calendar = ({ subscriptions, onEditSubscription, currency }) => {
       </div>
     </div>
   );
-};
-
-export default Calendar;
+}

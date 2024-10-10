@@ -1,16 +1,14 @@
 import React from "react";
 import { X, Edit } from "lucide-react";
+import { calculateTotalMonthlySpend } from "../utils/calculations";
 
-const SpendingOverviewModal = ({
+export function SpendingOverviewModal({
   onClose,
   subscriptions,
   onEditSubscription,
   currency,
-}) => {
-  const totalMonthlySpend = subscriptions.reduce((total, sub) => {
-    if (sub.endDate && new Date(sub.endDate) < new Date()) return total;
-    return total + (sub.frequency === "monthly" ? sub.cost : sub.cost / 12);
-  }, 0);
+}) {
+  const totalMonthlySpend = calculateTotalMonthlySpend(subscriptions);
 
   const spendingByCategory = subscriptions.reduce((acc, sub) => {
     if (sub.endDate && new Date(sub.endDate) < new Date()) return acc;
@@ -92,6 +90,6 @@ const SpendingOverviewModal = ({
       </div>
     </div>
   );
-};
+}
 
 export default SpendingOverviewModal;
