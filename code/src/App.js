@@ -19,16 +19,29 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CalendarView from "./pages/CalendarView";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import AuthPage from "./pages/AuthPage";
+import { dark } from "@clerk/themes";
+import { Dashboard } from "./pages/Dashboard";
 
 const publishableKey = "pk_test_Ym9sZC1kb2UtNzQuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 export default function App() {
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkProvider
+      publishableKey={publishableKey}
+      appearance={{ baseTheme: dark }}
+    >
       <Router>
         <Routes>
           <Route path="/" element={<CalendarView />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </ClerkProvider>
