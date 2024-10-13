@@ -1,19 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Header } from "./components/Header";
-import { Reminders } from "./components/Reminders";
-import { Calendar } from "./components/Calendar";
-import { AddSubscriptionButton } from "./components/AddSubscriptionButton";
-import { Footer } from "./components/Footer";
-import { AddSubscriptionModal } from "./components/AddSubscriptionModal";
-import { SpendingOverviewModal } from "./components/SpendingOverviewModal";
-import { EditSubscriptionModal } from "./components/EditSubscriptionModal";
-import { useSubscriptions } from "./hooks/useSubscriptions";
-import { useCurrency } from "./hooks/useCurrency";
-import { useReminders } from "./hooks/useReminders";
-import {
-  calculateTotalPaidAllTime,
-  calculateTotalMonthlySpend,
-} from "./utils/calculations";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CalendarView from "./pages/CalendarView";
@@ -21,8 +6,14 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import AuthPage from "./pages/AuthPage";
 import { dark } from "@clerk/themes";
 import { Dashboard } from "./pages/Dashboard";
+import { loadStripe } from "@stripe/stripe-js";
+import { VerificationComponent } from "./auth/VerificationComponents";
 
 const publishableKey = "pk_test_Ym9sZC1kb2UtNzQuY2xlcmsuYWNjb3VudHMuZGV2JA";
+
+const stripePromise = loadStripe(
+  "pk_test_51Q3zRsBsc6HJVesCMXSyTJdibb9S9JLIokFvp8B4jzfCH9tWJf1CGO9ReJG9hI8gXNeVBbmc7Cw1WLCpvc7bPrQ600IKgVKD7A"
+);
 
 export default function App() {
   return (
@@ -42,6 +33,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/verify" element={<VerificationComponent />} />
         </Routes>
       </Router>
     </ClerkProvider>

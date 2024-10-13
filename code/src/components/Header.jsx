@@ -138,6 +138,19 @@ export function Header({
                 onClick={() => setSettingsView(!settingsView)}
               />
             </div>
+            <p className="mt-6 mb-6">
+              {user.unsafeMetadata.isSubscriber
+                ? "You are subscribed!"
+                : "You are not subscribed"}
+            </p>
+            {!user.unsafeMetadata.isSubscriber && (
+              <a
+                href="https://buy.stripe.com/test_6oEeWvaVh6xY6o88ww"
+                className="bg-white px-4 py-2 rounded-lg text-black hover:bg-gray-200"
+              >
+                Subscribe now!
+              </a>
+            )}
           </div>
         </div>
       )}
