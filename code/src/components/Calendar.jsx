@@ -4,9 +4,18 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import React, { useState } from "react";
-export function Calendar({ subscriptions, onEditSubscription, currency }) {
+import React, { useEffect, useState } from "react";
+import { useSubscriptions } from "../hooks/useSubscriptions";
+import { useCurrency } from "../hooks/useCurrency";
+
+export function Calendar({ onEditSubscription }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const { subscriptions, isLoading, reloadSubscriptions } = useSubscriptions();
+  const { currency, setCurrency } = useCurrency();
+
+  useEffect(() => {
+    reloadSubscriptions();
+  }, [reloadSubscriptions]);
 
   const daysInMonth = new Date(
     currentDate.getFullYear(),
@@ -77,6 +86,15 @@ export function Calendar({ subscriptions, onEditSubscription, currency }) {
     }
     return false;
   };
+
+  const handleEditSubscription = (subscription) => {
+    onEditSubscription(subscription);
+    reloadSubscriptions();
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-black rounded-2xl overflow-hidden">
@@ -155,7 +173,7 @@ export function Calendar({ subscriptions, onEditSubscription, currency }) {
                     src={sub.logo}
                     alt={sub.name}
                     className="w-4 h-4 sm:w-6 sm:h-6 mt-2 sm:mt-0 rounded-full cursor-pointer"
-                    onClick={() => onEditSubscription(sub)}
+                    onClick={() => handleEditSubscription(sub)}
                     title={`${sub.name} - ${currency.symbol}${sub.cost}`}
                   />
                 ))}

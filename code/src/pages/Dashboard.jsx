@@ -1,5 +1,7 @@
-import { useUser } from "@clerk/clerk-react";
+import { SignOutButton, useUser } from "@clerk/clerk-react";
 import React from "react";
+import { SubscriptionStatus } from "../components/SubscriptionStatus";
+import { SubscriptionButton } from "../components/SubscriptionButton";
 
 export function Dashboard() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -44,7 +46,9 @@ export function Dashboard() {
         </div>
         <div className="bg-[#1d1d1d] rounded-2xl p-6">
           <h2 className="text-xl font-semibold mb-4">Dashboard Content</h2>
-          <p>This is your personalized dashboard. Add your content here.</p>
+          <SubscriptionStatus />
+          <SubscriptionButton priceId="price_1Q8owABsc6HJVesCZCqnF94g" />
+          <SignOutButton />
         </div>
       </div>
     </div>

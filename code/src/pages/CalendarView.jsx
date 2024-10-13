@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { useSubscriptions } from "../hooks/useSubscriptions";
+import {
+  useSubscriptions,
+  useSubscriptionsAndCurrency,
+} from "../hooks/useSubscriptions";
 import { useCurrency } from "../hooks/useCurrency";
 import { useReminders } from "../hooks/useReminders";
 import {
@@ -16,8 +19,12 @@ import SpendingOverviewModal from "../components/SpendingOverviewModal";
 import EditSubscriptionModal from "../components/EditSubscriptionModal";
 
 const CalendarView = () => {
-  const { subscriptions, addSubscription, editSubscription } =
-    useSubscriptions();
+  const {
+    subscriptions,
+    addSubscription,
+    editSubscription,
+    saveSubscriptions,
+  } = useSubscriptions();
   const { currency, setCurrency } = useCurrency();
   const { reminders } = useReminders(subscriptions);
 
@@ -29,9 +36,9 @@ const CalendarView = () => {
   const totalPaidAllTime = calculateTotalPaidAllTime(subscriptions);
   const totalMonthlySpend = calculateTotalMonthlySpend(subscriptions);
 
-  const handleEditSubscription = (subscription) => {
-    setEditingSubscription(subscription);
-    setIsEditModalOpen(true);
+  const handleEditSubscription = (updatedSubscription) => {
+    console.log("Editing subscription:", updatedSubscription);
+    editSubscription(updatedSubscription);
   };
 
   return (
@@ -47,7 +54,9 @@ const CalendarView = () => {
         <Reminders reminders={reminders} />
         <Calendar
           subscriptions={subscriptions}
-          onEditSubscription={handleEditSubscription}
+          onEditSubscription={(subscription) =>
+            setEditingSubscription(subscription)
+          }
           currency={currency}
         />
         <AddSubscriptionButton onClick={() => setIsAddModalOpen(true)} />
@@ -72,7 +81,7 @@ const CalendarView = () => {
         <EditSubscriptionModal
           subscription={editingSubscription}
           onClose={() => setIsEditModalOpen(false)}
-          onEdit={editSubscription}
+          onEdit={handleEditSubscription}
           currency={currency}
         />
       )}
